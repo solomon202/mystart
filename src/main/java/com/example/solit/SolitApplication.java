@@ -1,5 +1,5 @@
 package com.example.solit;
-//запуск приложения вод запроса .
+//запуск приложения вод запроса .запуск ожидание на сервере 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
