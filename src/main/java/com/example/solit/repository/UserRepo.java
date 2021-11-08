@@ -10,3 +10,5 @@ public interface UserRepo extends CrudRepository<UserEntity, Long> {
 	//отдает метод сервису 
     UserEntity findByUsername(String username);
 }
+//Основное понятие в Spring Data — это репозиторий. Это несколько интерфейсов которые используют JPA
+//Entity для взаимодействия с ней.

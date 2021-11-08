@@ -1,6 +1,6 @@
 package com.example.solit.model;
 //модель обмениваемся с клиентом а сущьность обмениваемся с базой это разные классы 
-
+//работа между сервером и клиентом
 import com.example.solit.entity.UserEntity;
 
 import java.util.List;
