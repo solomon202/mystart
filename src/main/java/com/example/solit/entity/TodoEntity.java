@@ -1,5 +1,6 @@
 package com.example.solit.entity;
 //сущьность задачи 
+//создается в базе данных и управляется с помощью spring.jpa.hibernate.ddl-auto=none
 import javax.persistence.*;
 
 @Entity

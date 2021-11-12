@@ -6,11 +6,13 @@ import javax.persistence.*;
 
 //ORM пользуется моделями данных для общения с БД. Но что, если модели захотелось поменять? Для этого программисты придумали миграции.
 import java.util.List;
-//сгенерировать сущьность персонаж
+//сгенерировать сущьность персонаж в бд 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 //то связь между базой данной.
 //записать в таблицу получить.обеспечивает основные операции по поиску, сохранения, удалению данных
+//миграции это контроль изменеия версий базы данных и внисения изменений в базу внося новые поля(поле не меняется через entity нернерится новое)
+//и колонки обновляем в пропертях spring.jpa.hibernate.ddl-auto=create
 //Hibernate сущность, которая мапится на нашу таблицу, будет выглядеть так:
 public class UserEntity {
     @Id
@@ -18,6 +20,7 @@ public class UserEntity {
     private Long id;
     private String username;
     private String password;
+    private String email;
 //связь с другой таблицей удаление всех таблиц при стирании пользователя 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<TodoEntity> todos;
@@ -56,4 +59,12 @@ public class UserEntity {
     public void setPassword(String password) {
         this.password = password;
     }
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }
