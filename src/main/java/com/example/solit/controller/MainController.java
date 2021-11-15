@@ -19,4 +19,14 @@ public class MainController {
     public String usecuredPage() {
         return "unsecured";
     }
+	 
+	 @GetMapping("/auth_page")
+	    public String authenticatedPage() {
+	        return "authenticated";
+	    }
+
+	    @GetMapping("/admin")
+	    public String adminPage() {
+	        return "admin";
+}
 }

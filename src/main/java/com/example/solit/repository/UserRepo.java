@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 //CrudRepository имеет набор базовых методов для работы с сущностью,
 //названия которых говорят сами за себя:
 public interface UserRepo extends CrudRepository<UserEntity, Long> {
-	//отдает метод сервису 
+	//отдает метод сервису распарсит хочу искать по имени пользователя 
     UserEntity findByUsername(String username);
 }
 //Основное понятие в Spring Data — это репозиторий. Это несколько интерфейсов которые используют JPA
