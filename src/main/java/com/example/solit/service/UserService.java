@@ -1,36 +1,49 @@
 package com.example.solit.service;
 
-import com.example.solit.entity.UserEntity;
-import com.example.solit.exception.UserAlreadyExistException;
-import com.example.solit.exception.UserNotFoundException;
-import com.example.solit.model.User;
-import com.example.solit.repository.UserRepo;
+
+import com.example.solit.entity.Role;
+import com.example.solit.entity.User;
+import com.example.solit.repository.UserRepository;
+
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
+import java.util.Optional;
+import java.util.stream.Collectors;
 //сервес обрабатывает конкретный запрос 
+//задача сервиса по имени пользователя предоставить самого юзера 
 @Service
-public class UserService {
+@Profile("dao")
+public class UserService implements UserDetailsService {
+    private UserRepository userRepository;
 
     @Autowired
-    private UserRepo userRepo;
-
-    public UserEntity registration(UserEntity user) throws UserAlreadyExistException {
-        if (userRepo.findByUsername(user.getUsername()) != null) {
-            throw new UserAlreadyExistException("Пользователь с таким именем существует");
-        }
-        return userRepo.save(user);
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public User getOne(Long id) throws UserNotFoundException {
-        UserEntity user = userRepo.findById(id).get();
-        if (user == null) {
-            throw new UserNotFoundException("Пользователь не найден");
-        }
-        return User.toModel(user);
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
-    public Long delete(Long id) {
-        userRepo.deleteById(id);
-        return id;
+    @Override
+    @Transactional
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("User '%s' not found", username)));
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+    }
+
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 }
