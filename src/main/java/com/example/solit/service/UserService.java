@@ -38,6 +38,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     @Transactional
+    //вытаскиваем юзера 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("User '%s' not found", username)));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
