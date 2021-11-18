@@ -1,6 +1,6 @@
 package com.example.solit.service;
 
-
+//запросить у настоящего юзера и сравнить пароли
 import com.example.solit.entity.Role;
 import com.example.solit.entity.User;
 import com.example.solit.repository.UserRepository;
@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 //сервес обрабатывает конкретный запрос 
-//задача сервиса по имени пользователя предоставить самого юзера 
+//задача сервиса по имени пользователя предоставить самого юзера его пароль имя
 @Service
 @Profile("dao")
 public class UserService implements UserDetailsService {
@@ -38,12 +38,13 @@ public class UserService implements UserDetailsService {
 
     @Override
     @Transactional
-    //вытаскиваем юзера 
+    //вытаскиваем юзера его пароль все данные для удификации его права доступа имя и пароль  по имени если нет такого получим ноль
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("User '%s' not found", username)));
+        //и возвращаем его зовут так пароль и роль
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
-
+//колекция ролей  преоброзования из строк в прав доступа
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }

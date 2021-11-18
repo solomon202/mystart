@@ -1,6 +1,6 @@
 package  com.example.solit.repository;
 
-
+//вытаскивает с базы 
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;

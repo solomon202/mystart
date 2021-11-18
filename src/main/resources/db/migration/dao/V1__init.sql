@@ -26,7 +26,7 @@ values
 
 insert into users (username, password, email)
 values
-('user', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'user@gmail.com');
+('user', '$2a$12$.EMsxhBBf28u8v7hB1QIbOACx5UbHXNELZM.U37NI0Axd7c7EnOI.', 'user@gmail.com');
 
 insert into users_roles (user_id, role_id)
 values

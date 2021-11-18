@@ -19,13 +19,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //куда есть доступ куда нет доступа куда нужно вбивать пороль пользователь все настройки безопасности происходят в этом класе 
 public class DaoSecurityConfig extends WebSecurityConfigurerAdapter {
     private Logger logger = LoggerFactory.getLogger(DaoSecurityConfig.class.getName());
+    //юзер сервис инжектим в конфиг для получения доступа к ниму 
     private UserService userService;
 
     @Autowired
     public void setUserDetailsService(UserService userService) {
         this.userService = userService;
     }
-
+//вытаскиваем методы из класса http
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         logger.info("Dao Authentication Provider");
@@ -41,15 +42,25 @@ public class DaoSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
                 .and()
               //индификация через форму или указать на свою форму 
-                .formLogin();
+                .formLogin()
+                .and()
+//      .csrf().disable()
+//после регистрации проверки юзер попадает в корень плиложения
+               .logout().logoutSuccessUrl("/");
+                
     }
-//преобразователь паролей
+//преобразователь паролей кодирует пароли силой 12
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
+    //запросить пароль и имя 
+    //задача провайдера произвести аудификацию если юзер существует положи его в спринг секюрити контекст получает токен
+    //проверка пароля отдаем ему пароль его задача сверить существует такой пароль или не существует
+    //если существует его нужно положить спринг секюрити контекст 
+    //вытащить в userService пароль
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setPasswordEncoder(passwordEncoder());
