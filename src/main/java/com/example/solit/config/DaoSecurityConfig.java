@@ -7,14 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 //включить безопасность спринг секюрите если не включить адаптер небудет наследоватся
 @EnableWebSecurity(debug = true)
-@Profile("dao")
+@Profile("dao")//spring.profiles.active - одно из свойств,подключается в конфигурациии при сборки приложения
 //наследуемся от одаптара безопасности вызывая методы для переопределения для настройки безопасности
 //куда есть доступ куда нет доступа куда нужно вбивать пороль пользователь все настройки безопасности происходят в этом класе 
 public class DaoSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -42,29 +44,25 @@ public class DaoSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
                 .and()
               //индификация через форму или указать на свою форму 
-                .formLogin()
-                .and()
-//      .csrf().disable()
-//после регистрации проверки юзер попадает в корень плиложения
-               .logout().logoutSuccessUrl("/");
+                .formLogin();
+    }        
                 
-    }
-//преобразователь паролей кодирует пароли силой 12
+       //преобразователь паролей кодирует пароли силой 12
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    //запросить пароль и имя 
-    //задача провайдера произвести аудификацию если юзер существует положи его в спринг секюрити контекст получает токен
-    //проверка пароля отдаем ему пароль его задача сверить существует такой пароль или не существует
-    //если существует его нужно положить спринг секюрити контекст 
-    //вытащить в userService пароль
-    public DaoAuthenticationProvider daoAuthenticationProvider() {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setPasswordEncoder(passwordEncoder());
-        authenticationProvider.setUserDetailsService(userService);
-        return authenticationProvider;
+        @Bean
+        //запросить пароль и имя 
+        //задача провайдера произвести аудификацию если юзер существует положи его в спринг секюрити контекст получает токен
+        //проверка пароля отдаем ему пароль его задача сверить существует такой пароль или не существует
+        //если существует его нужно положить спринг секюрити контекст 
+        //вытащить в userService пароль
+        public DaoAuthenticationProvider daoAuthenticationProvider() {
+            DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+            authenticationProvider.setPasswordEncoder(passwordEncoder());
+            authenticationProvider.setUserDetailsService(userService);
+            return authenticationProvider;
+        }
     }
-}
