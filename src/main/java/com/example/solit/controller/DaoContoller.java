@@ -11,7 +11,10 @@ import java.security.Principal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.solit.entity.User;
@@ -21,7 +24,8 @@ import java.security.Principal;
 //спринг на основании онотаций создает бин обьект.
 //указывает Spring что это рест-контроллер обработка запроса 
 @RestController
-@Profile("dao")
+//название сервера
+//@RequestMapping("/solit")
 @Slf4j
 public class DaoContoller {
 
@@ -35,6 +39,8 @@ public class DaoContoller {
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
+
+    
   //этот метод именно для GET запросов) и указали к методу путь 
     //Principal principal это очень сжатая информация о юзере 
     @GetMapping("/dao")

@@ -32,8 +32,22 @@ public class DaoSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         logger.info("Dao Authentication Provider");
-      //имеют доступ все 
-        http.authorizeRequests()
+      //Это строкой мы говорим предоставить разрешения для следующих url.
+           http
+           
+           .csrf().disable()
+           .authorizeRequests()
+           .antMatchers("/").permitAll()
+           .anyRequest()
+           .authenticated()
+           .and()
+           .formLogin()
+           .loginPage("/login").permitAll();
+           
+           
+           
+           
+           /*.authorizeRequests()
         //уровни защищености фильтры 
         //если пользователь переходт по этой ссылке то тоько пускать индефецированых
                 .antMatchers("/authenticated/**").authenticated()
@@ -43,8 +57,10 @@ public class DaoSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPERADMIN") // ROLE_ADMIN, ROLE_SUPERADMIN
                 .anyRequest().permitAll()
                 .and()
-              //индификация через форму или указать на свою форму 
-                .formLogin();
+              //индификация через форму или указать на свою форму Ввод логина и пароля в форму считается аутентификциейс адресом шаблона
+    			.formLogin()
+    			.loginPage("/login").permitAll(); */
+    				
     }        
                 
        //преобразователь паролей кодирует пароли силой 12
