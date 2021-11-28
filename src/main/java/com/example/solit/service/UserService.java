@@ -44,7 +44,7 @@ public class UserService implements UserDetailsService {
         //и возвращаем его зовут так пароль и роль
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
-//колекция ролей  преоброзования из строк в прав доступа
+    //колекция ролей  преоброзования из строк в прав доступа
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }

@@ -4,10 +4,6 @@ package com.example.solit.controller;
 
 
 import java.security.Principal;
-
-
-
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -24,8 +20,9 @@ import java.security.Principal;
 //спринг на основании онотаций создает бин обьект.
 //указывает Spring что это рест-контроллер обработка запроса 
 @RestController
-//название сервера
-//@RequestMapping("/solit")
+@Profile("dao")
+//запрос обрабатывает конкретные запросы этогокласса 
+@RequestMapping("/solit")
 @Slf4j
 public class DaoContoller {
 
@@ -38,11 +35,11 @@ public class DaoContoller {
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
-    }
-
+    } 
     
-  //этот метод именно для GET запросов) и указали к методу путь 
+  //этот метод именно для GET запросов и указали к методу путь 
     //Principal principal это очень сжатая информация о юзере 
+    //вытаскиваем имя и почту authenticated: user : user@gmail.com
     @GetMapping("/dao")
     public String daoTestPage(Principal principal) {
      //Authentication a = SecurityContextHolder.getContext().getAuthentication();
