@@ -30,22 +30,12 @@ public class DaoSecurityConfig extends WebSecurityConfigurerAdapter {
         this.userService = userService;
     }
 //вытаскиваем методы из класса http
+//    передает на вход обьект 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         logger.info("Dao Authentication Provider");
       //Это строкой мы говорим предоставить разрешения для следующих url.
            http
-       /*    //защита от вставок левых сайтов
-           .csrf().disable()
-           .authorizeRequests()
-           .antMatchers("/").permitAll()
-           .anyRequest()
-           .authenticated()
-           .and()
-           .formLogin()
-           .loginPage("/login").permitAll();*/
-           
-           
            
            //защита от вставок левых сайтов
            .csrf().disable()
@@ -62,7 +52,10 @@ public class DaoSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
               //индификация через форму или указать на свою форму Ввод логина и пароля в форму считается аутентификциейс адресом шаблона
     			.formLogin()
-    			.loginPage("/login").permitAll(); 
+    			//http /login формы для вода логин пароль на безопасность 
+    			.loginPage("/login").permitAll()
+                //Перенарпавление на главную страницу после успешного входа
+                 .defaultSuccessUrl("/dao");
     				
     }        
                 
