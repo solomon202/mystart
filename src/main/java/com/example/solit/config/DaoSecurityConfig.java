@@ -37,9 +37,11 @@ public class DaoSecurityConfig extends WebSecurityConfigurerAdapter {
       //Это строкой мы говорим предоставить разрешения для следующих url.
            http
            
-           //защита от вставок левых сайтов
-           .csrf().disable()
+             //защита от вставок левых сайтов
+              .csrf().disable()
               .authorizeRequests()
+              
+              .antMatchers("/**").permitAll()
              //.authorizeRequests().anyRequest().authenticated()//Декларирует, что все запросы к любой конечной точке должны быть авторизованы, иначе они должны быть отклонены.
         //уровни защищености фильтры 
         //если пользователь переходт по этой ссылке то тоько пускать индефецированых
@@ -55,7 +57,7 @@ public class DaoSecurityConfig extends WebSecurityConfigurerAdapter {
     			//http /login формы для вода логин пароль на безопасность 
     			.loginPage("/login").permitAll()
                 //Перенарпавление на главную страницу после успешного входа
-                 .defaultSuccessUrl("/dao");
+                 .defaultSuccessUrl("/layouts");
     				
     }        
                 

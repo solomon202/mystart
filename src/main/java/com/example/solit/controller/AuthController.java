@@ -16,16 +16,20 @@ public class AuthController {
   
         
 //        обработка конкретного урла  public String viewLoginPage()
-        @GetMapping("/login")
+        @GetMapping("/ru")
         //все методы в данном Контроллере относятся к URL-адресу 
         //Контроллер обрабатывает запрос и создает модель. 
         //Front-контроллер заполняет представление данными модели и возвращает полученный результат браузеру
         //создается бин с названием метода вашем 
         public String  viewLoginPage() {
         	//имя предстовления формы 
-            return "input";
+            return "";
         }
-      
+        @GetMapping("/layouts")
+        public String  view() {
+        	//имя предстовления формы 
+            return "layout";
+        }
         
     }
      
