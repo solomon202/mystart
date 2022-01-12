@@ -1,5 +1,5 @@
 // Добавляем прослушку на всем окне
-      window.addEventListener('click', function (event) {
+window.addEventListener('click', function (event) {
 
     // Объявляем переменную для счетчика
     let counter;
