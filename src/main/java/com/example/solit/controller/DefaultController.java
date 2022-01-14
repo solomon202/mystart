@@ -21,7 +21,7 @@ public class DefaultController {
     @Autowired
     ProductRepository productRepository;
 
-    @GetMapping("/")
+    @GetMapping("/du")
     public String index(Model model) {
         Iterable<ProductType> types = productTypeRepository.findAll();
         Map<ProductType, List<Product>> map = new HashMap<>();

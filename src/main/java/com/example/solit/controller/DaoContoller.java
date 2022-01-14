@@ -26,8 +26,8 @@ import java.security.Principal;
 @Slf4j
 public class DaoContoller {
 
-//сылка на класс конкретный который обрабатывает запрос 
-    private UserService userService;
+//сылка на класс конкретный который обрабатывает запрос   
+        private UserService userService;
 //запрос обрабатывается конкреными  методами  передаете состояние, а не храните его на сервере.
 //В REST вообще не существует Model и View. Есть только данные, поставляемые контроллером, и представление ресурса,
 //когда сообщение конвертируется из медиа-типа(json, xml...) в объект.
@@ -41,10 +41,10 @@ public class DaoContoller {
     //Principal principal это очень сжатая информация о юзере 
     //вытаскиваем имя и почту authenticated: user : user@gmail.com
     @GetMapping("/dao")
-    public String daoTestPage(Principal principal) {
+   public String daoTestPage(Principal principal) {
      //Authentication a = SecurityContextHolder.getContext().getAuthentication();
     	//поиск по имени 
-        User user = userService.findByUsername(principal.getName()).orElseThrow(() -> new RuntimeException("unable to fing user by username: " + principal.getName()));
-        return "authenticated: " + user.getUsername() + " : " + user.getEmail() + " : "  + user.getId();
+       User user = userService.findByUsername(principal.getName()).orElseThrow(() -> new RuntimeException("unable to fing user by username: " + principal.getName()));
+       return "authenticated: " + user.getUsername() + " : " + user.getEmail() + " : "  + user.getId();
     }
 }

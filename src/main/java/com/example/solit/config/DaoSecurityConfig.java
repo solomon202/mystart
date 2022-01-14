@@ -45,19 +45,21 @@ public class DaoSecurityConfig extends WebSecurityConfigurerAdapter {
              //.authorizeRequests().anyRequest().authenticated()//Декларирует, что все запросы к любой конечной точке должны быть авторизованы, иначе они должны быть отклонены.
         //уровни защищености фильтры 
         //если пользователь переходт по этой ссылке то тоько пускать индефецированых
-                .antMatchers("/authenticated/**").authenticated()
+                //получения ответа 
+//  вошли в систему под чиим именем      (вставили и повернули — прошли идентификацию) ПОД юзер или админ      
                 .antMatchers("/dao").authenticated()
               //суда пускать только того у кого есть роль
-                //роли допуска кого можно пускать юзер имеет роли 
+                //роли допуска кого можно пускать юзер или админа имеет роли 
+                .antMatchers("/shop").hasAnyRole("USER")
                 .antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPERADMIN") // ROLE_ADMIN, ROLE_SUPERADMIN
                 .anyRequest().permitAll()
                 .and()
               //индификация через форму или указать на свою форму Ввод логина и пароля в форму считается аутентификциейс адресом шаблона
     			.formLogin()
     			//http /login формы для вода логин пароль на безопасность 
-    			.loginPage("/login").permitAll()
+    			.loginPage("/regist").permitAll()
                 //Перенарпавление на главную страницу после успешного входа
-                 .defaultSuccessUrl("/layouts");
+                 .defaultSuccessUrl("/shop");
     				
     }        
                 
