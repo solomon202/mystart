@@ -1,5 +1,4 @@
-function alerted(){
-  alert("Вы нажали на кнопку");
+function showMessage() {
+  alert('Вы кликнули по кнопке!')
 }
-
-
+			
