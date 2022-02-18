@@ -10,6 +10,11 @@ public class UserNumber {
 	UserNumber(){
 	}
 	
+	
+	public UserNumber(String number){
+		this.number = number;
+		}
+	
     //получили сылку со значением 
 	public String getNumber() {
         return number;
@@ -19,4 +24,7 @@ public class UserNumber {
         this.number = number;
     }
 
-}
+  
+	}
+
+
