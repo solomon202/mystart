@@ -20,9 +20,14 @@ public class PeopleController {
     public PeopleController(PersonDAO personDAO) {
         this.personDAO = personDAO;
     }
-// создаём обьект вставляем методв его параметры другой обьект и в теле вытаскиваем сылки
+// создаём обьект вставляем методв его параметры другой обьект и
+    //в теле вытаскиваем сылки
     @GetMapping()
+   // Model (модель). Получает данные от контроллера, выполняет необходимые 
+    //операции и передаёт их в вид. View (вид или представление).
+    //модель бд для передачи её в модель html
     public String index(Model model) {
+//     связь бд	получить индекс и вставвит в форму 
         model.addAttribute("people", personDAO.index());
         return "people/index";
     }
@@ -32,13 +37,17 @@ public class PeopleController {
         model.addAttribute("person", personDAO.show(id));
         return "people/show";
     }
-
+     //получитьстраницу
     @GetMapping("/new")
+    //Он помещает в модель компонент, созданный кодом пользователя, 
+    //и всегда вызывается перед методом обработки запроса.
+    //@ModelAttribute("person") модель и её отребуты которые переходят в обьект персона
     public String newPerson(@ModelAttribute("person") Person person) {
         return "people/new";
     }
 
     @PostMapping()
+    // взять атребуты модели и сохранение в базу 
     public String create(@ModelAttribute("person") Person person) {
         personDAO.save(person);
         return "redirect:/people";
