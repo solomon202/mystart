@@ -31,8 +31,12 @@ public class PeopleController {
         model.addAttribute("people", personDAO.index());
         return "people/index";
     }
-
+   //получить по айди 
     @GetMapping("/{id}")
+    // @RequestParam используется для получения параметров запроса из URL
+    //String getParameter (String name) Возвращает значение параметра запроса в виде String или null, если параметр не существует. Параметры запроса
+    //- это дополнительная информация, отправляемая вместе с запросом.
+    //@PathVariable извлекает значения из URI.
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("person", personDAO.show(id));
         return "people/show";
@@ -42,6 +46,8 @@ public class PeopleController {
     //Он помещает в модель компонент, созданный кодом пользователя, 
     //и всегда вызывается перед методом обработки запроса.
     //@ModelAttribute("person") модель и её отребуты которые переходят в обьект персона
+    //происходит, так это то, что он получает все значения вашей формы, которые были переданы им, 
+    //а затем хранит их, чтобы вы могли связать или присвоить их объекту.
     public String newPerson(@ModelAttribute("person") Person person) {
         return "people/new";
     }
