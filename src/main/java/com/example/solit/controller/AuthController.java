@@ -20,11 +20,11 @@ import com.example.solit.entity.User;
 import com.example.solit.model.UserModel;
 import com.example.solit.model.UserNumber;
 
-import com.example.solit.service.PersonDAO;
 import com.example.solit.model.Person;
 //По результату успешно выполненной авторизации возвращаю данные авторизованного пользователя.
 //анотации создают обьекты оживляя их говоря сервису спринг создает обьекты
 @Controller
+//контролеер это управление 
 //название сервера через него набираются имена контролеров
 //@RequestMapping("/start")
 public class AuthController {
@@ -47,11 +47,26 @@ public class AuthController {
 
 	
 	//для доступа к указанной странице
+    
 	  @GetMapping("/regist")
       public String  view() {
       	//имя предстовления формы 
           return "regist";
       }
+	  
+	//сылка на класс конкретный который обрабатывает запрос  
+	    
+
+	  @GetMapping()
+	   // Model (модель). Получает данные от контроллера, выполняет необходимые 
+	    //операции и передаёт их в вид. View (вид или представление).
+	    //модель из бд  в entity для передачи из html в модель 
+	  //передачей данных от контроллера представлению при помощи модели в виде параметров
+	    public String index(Model model) {
+//	     связь бд	получить индекс и вставвит в форму 
+	       // model.addAttribute();
+	        return "index";
+	    }
 	  
 	  
 	  
