@@ -5,18 +5,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.example.solit.entity.Product;
-import com.example.solit.entity.ProductType;
-import com.example.solit.repository.ProductRepository;
-import com.example.solit.repository.ProductTypeRepository;
+
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
-@Controller
-public class DefaultController {
+//@Controller
+//public class DefaultController {
 
-    @Autowired
-    ProductTypeRepository productTypeRepository;
+  //  @Autowired
+  /*  ProductTypeRepository productTypeRepository;
 
     @Autowired
     ProductRepository productRepository;
@@ -57,7 +55,7 @@ public class DefaultController {
         model.addAttribute("productType", productType);
         return "productTypeForm";
     }
-
+//сохранить  модель и вывести уже всю бд с новой записью 
     @PostMapping("productTypeList/add")
     public String productTypeListAddSubmit(@ModelAttribute ProductType productType, Model model){
         productTypeRepository.save(productType);
@@ -79,4 +77,4 @@ public class DefaultController {
         return "productTypeForm";
     }
 
-}
+}*/

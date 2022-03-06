@@ -1,8 +1,6 @@
 package com.example.solit.model;
 
-/**
- * @author Neil Alishev
- */
+
 public class Person {
     private int id;
     private String name;

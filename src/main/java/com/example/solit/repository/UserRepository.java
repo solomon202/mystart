@@ -19,6 +19,7 @@ import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 //отдает метод сервису распарсит хочу искать по имени пользователя 
+	//хороший тон разделя методы и переносить в отдельный интерфейс 
     Optional<User> findByUsername(String username);
 }
 //Основное понятие в Spring Data — это репозиторий. Это несколько интерфейсов которые используют JPA

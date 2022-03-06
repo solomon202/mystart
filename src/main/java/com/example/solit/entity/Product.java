@@ -30,9 +30,9 @@ public class Product {
     @Type(type = "text")
     private String description;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="product_type_id")
-    private ProductType productType;
+  //  @OneToOne(cascade = CascadeType.ALL)
+  //  @JoinColumn(name="product_type_id")
+  //  private ProductType productType;
 
     public Product() {
     }
@@ -93,11 +93,11 @@ public class Product {
         this.image = image;
     }
 
-    public ProductType getProductType() {
-        return productType;
-    }
+   // public ProductType getProductType() {
+      //  return productType;
+  //  }
 
-    public void setProductType(ProductType productType) {
-        this.productType = productType;
+  //  public void setProductType(ProductType productType) {
+  //      this.productType = productType;
     }
-}
+//}
